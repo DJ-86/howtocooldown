@@ -19,4 +19,3 @@ npm run dev
 Connect the GitHub repository in Cloudflare Pages and configure both `howtocooldown.com` and `www.howtocooldown.com` under Custom domains.
 
 Weather data is requested directly by the visitor's browser from Open-Meteo. No weather API secret is stored in this repository.
-
