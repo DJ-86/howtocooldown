@@ -1,3 +1,5 @@
+import { additionalArticles } from './additional-articles';
+
 export type ArticleType = 'action' | 'decision' | 'situation' | 'science' | 'safety';
 export type Source = { organisation: string; title: string; url: string; type: 'official guidance' | 'health guidance'; accessed: string; supports: string };
 export type ArticleSection = { heading: string; paragraphs?: string[]; steps?: string[]; callout?: { tone: 'warning' | 'emergency'; title: string; text: string } };
@@ -41,6 +43,7 @@ export const articles: Article[] = [
     { heading: 'When it is an emergency', callout: { tone: 'emergency', title: 'Call 999 for possible heatstroke', text: 'Call 999 if the person is still unwell after 30 minutes of cooling and fluids, or has a very high temperature, hot skin without sweating, fast breathing, confusion, poor coordination, a seizure or loss of consciousness. Follow the call handler’s instructions.' } },
     { heading: 'About this guidance', paragraphs: ['This page cannot diagnose anyone. If you are struggling to treat heat-exhaustion symptoms or need advice, contact NHS 111.'] },
   ], relatedScience: ['how-fans-cool-you'], relatedActions: ['how-to-cool-a-room-without-ac'], relatedDecisions: [], relatedSituations: ['how-to-sleep-during-a-heatwave'], relatedSafety: [], showCoolingTool: false, sources: [nhsHeat, ukhsaHome], datePublished: reviewed, dateReviewed: reviewed },
+  ...additionalArticles,
 ];
 
 export const articleBySlug = new Map(articles.map(article => [article.slug, article]));

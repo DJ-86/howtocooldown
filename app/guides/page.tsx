@@ -1,7 +1,19 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import { GuideExplorer } from '@/components/GuideExplorer';
 import { SiteHeader } from '@/components/SiteHeader';
-import { articles, type ArticleType } from '@/lib/articles';
-export const metadata: Metadata = { title: 'Cooling guides', description: 'Practical, evidence-backed guides for cooling rooms, homes and people safely.', alternates: { canonical: '/guides' } };
-const groups: { title: string; subtitle: string; types: ArticleType[] }[] = [{ title: 'Cool a room', subtitle: 'Start with the changes that make a difference now.', types: ['action'] }, { title: 'Homes & bedrooms', subtitle: 'Advice shaped around the space you are in.', types: ['situation'] }, { title: 'Understand the science', subtitle: 'Clear explanations, after the answer.', types: ['science'] }, { title: 'Heat safety', subtitle: 'Recognise risk and know what to do.', types: ['safety'] }];
-export default function GuidesPage() { return <main className="min-h-screen bg-[#f4fbf9] text-[#173c3a]"><SiteHeader /><section className="mx-auto max-w-6xl px-5 pb-14 pt-14 sm:px-8 sm:pt-20"><p className="text-sm font-bold uppercase tracking-[.15em] text-[#267969]">Practical knowledge</p><h1 className="mt-3 max-w-3xl text-5xl font-extrabold tracking-[-.055em] sm:text-7xl">Find the answer.<br />Then the reason.</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-[#52716e]">Short, connected guides for cooling rooms and people safely. No padded introductions—start with what to do.</p><Link href="/" className="mt-8 inline-flex rounded-xl bg-[#ef6b4a] px-5 py-3 font-bold text-white">Get advice for my room →</Link></section><div className="mx-auto max-w-6xl space-y-14 px-5 pb-24 sm:px-8">{groups.map(group => { const items = articles.filter(a => group.types.includes(a.articleType)); return <section key={group.title}><div className="border-b border-[#cfe2de] pb-4"><h2 className="text-3xl font-extrabold tracking-[-.04em]">{group.title}</h2><p className="mt-1 text-[#52716e]">{group.subtitle}</p></div><div className="mt-5 grid gap-4 md:grid-cols-2">{items.map(article => <Link key={article.slug} href={`/guides/${article.slug}`} className="group rounded-2xl border border-[#d5e8e3] bg-white p-6 transition hover:-translate-y-0.5 hover:shadow-lg"><p className="text-xs font-bold uppercase tracking-[.14em] text-[#68918a]">{article.articleType === 'science' ? 'Why it works' : article.articleType === 'safety' ? 'Heat safety' : 'What to do'}</p><h3 className="mt-3 text-xl font-bold group-hover:text-[#267969]">{article.title}</h3><p className="mt-2 leading-6 text-[#52716e]">{article.description}</p><span className="mt-5 inline-block font-bold text-[#267969]">Read guide →</span></Link>)}</div></section>; })}</div></main>; }
+import { articles } from '@/lib/articles';
+
+export const metadata: Metadata = { title: 'Cooling guides', description: 'Search practical, evidence-backed guides for cooling rooms, homes and people safely.', alternates: { canonical: '/guides' } };
+
+export default function GuidesPage() {
+  const guides = articles.map(({ title, slug, description, articleType, concepts }) => ({ title, slug, description, articleType, concepts }));
+  return <main className="min-h-screen bg-[#f4fbf9] text-[#173c3a]">
+    <SiteHeader />
+    <section className="mx-auto max-w-6xl px-5 pb-10 pt-14 sm:px-8 sm:pt-20">
+      <p className="text-sm font-bold uppercase tracking-[.15em] text-[#267969]">Practical knowledge</p>
+      <h1 className="mt-3 max-w-3xl text-5xl font-extrabold tracking-[-.055em] sm:text-7xl">Find the answer.<br />Then the reason.</h1>
+      <p className="mt-6 max-w-2xl text-lg leading-8 text-[#52716e]">Search concise, connected guides for cooling rooms and people safely. Start with what to do, then explore why it works.</p>
+    </section>
+    <GuideExplorer guides={guides} />
+  </main>;
+}
