@@ -3,7 +3,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://howtocooldown.com'),
-  title: 'How To Cool Down — Clear advice for a hot room',
+  title: { default: 'How To Cool Down — Clear advice for a hot room', template: '%s | How To Cool Down' },
   description: 'Fast, practical advice to cool your room and yourself safely.',
   alternates: { canonical: '/' },
   openGraph: {
